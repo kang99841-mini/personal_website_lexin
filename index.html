@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kang — Data Engineer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #f9f9f7;
+      --surface:  #ffffff;
+      --border:   #e5e5e0;
+      --text:     #1a1a1a;
+      --muted:    #6b6b6b;
+      --accent:   #2563eb;
+      --accent-h: #1d4ed8;
+      --radius:   10px;
+      --max-w:    680px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    /* ── Layout ── */
+    .page {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 2.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      flex-wrap: wrap;
+    }
+
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: var(--border);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    /* Replace <img> src with your photo path to show it */
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none; /* remove this line once you add a real photo */
+    }
+
+    .avatar-placeholder {
+      font-size: 2.25rem;
+      color: var(--muted);
+      user-select: none;
+    }
+
+    .hero-text h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-text .tagline {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-top: 0.2rem;
+    }
+
+    .hero-text .location {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    /* ── Section headers ── */
+    h2 {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 0.9rem;
+    }
+
+    p { margin-bottom: 0.75rem; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── Tags ── */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      font-size: 0.8rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.2rem 0.6rem;
+      color: var(--text);
+    }
+
+    /* ── Contact ── */
+    .contact-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .contact-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.95rem;
+    }
+
+    .contact-list .label {
+      width: 72px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      flex-shrink: 0;
+    }
+
+    .contact-list a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .contact-list a:hover { color: var(--accent-h); text-decoration: underline; }
+
+    .placeholder { color: var(--muted); font-style: italic; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Hero -->
+    <section>
+      <div class="hero">
+        <div class="avatar">
+          <!-- Replace with: <img src="photo.jpg" alt="Kang"> and remove display:none in CSS -->
+          <span class="avatar-placeholder">👤</span>
+        </div>
+        <div class="hero-text">
+          <h1>Kang</h1>
+          <div class="tagline">Data Engineer · ByteDance</div>
+          <div class="location">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            Singapore
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section>
+      <h2>About</h2>
+      <p>
+        I'm a Data Engineer on the Data Team at ByteDance, working within the Live Streaming vertical.
+        My focus is on <strong>live stream costing pipelines</strong> — building and maintaining systems
+        that calculate costs across petabyte-scale live streaming infrastructure, detect price mismatches,
+        and diagnose root causes in real time.
+      </p>
+      <p>
+        I work primarily with Hive SQL and Spark on ByteDance's in-house data warehouse platform.
+        I care about writing performant, correct pipelines and understanding the <em>why</em> behind
+        every architectural decision — not just the how.
+      </p>
+      <p>
+        Outside of work, I'm deepening my understanding of distributed query engines, data ingestion
+        patterns at scale, and the internals of Spark execution.
+      </p>
+
+      <div class="tags">
+        <span class="tag">Hive SQL</span>
+        <span class="tag">Apache Spark</span>
+        <span class="tag">Data Warehousing</span>
+        <span class="tag">Python</span>
+        <span class="tag">Petabyte-scale Pipelines</span>
+        <span class="tag">Cost Attribution</span>
+        <span class="tag">Live Streaming Data</span>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section>
+      <h2>Contact</h2>
+      <ul class="contact-list">
+        <li>
+          <span class="label">Email</span>
+          <!-- Replace href and text with your real email -->
+          <a href="mailto:your@email.com" class="placeholder">your@email.com</a>
+        </li>
+        <li>
+          <span class="label">LinkedIn</span>
+          <!-- Replace href and text with your LinkedIn URL -->
+          <a href="https://linkedin.com/in/yourhandle" class="placeholder">linkedin.com/in/yourhandle</a>
+        </li>
+        <li>
+          <span class="label">GitHub</span>
+          <a href="https://github.com/kang99841-mini">github.com/kang99841-mini</a>
+        </li>
+      </ul>
+    </section>
+
+  </div>
+
+  <footer>
+    Updated 2026 · Built with plain HTML
+  </footer>
+</body>
+</html>
