@@ -1,0 +1,16 @@
+HOW TO ADD YOUR PROFILE PHOTO
+──────────────────────────────
+1. Get a good headshot or professional photo of yourself
+2. Rename the file to:  profile.jpg  (or profile.png)
+3. Drop it into THIS folder  (assets/photos/)
+4. The site will automatically use it
+
+TIPS
+────
+• Square photos work best (1:1 ratio)
+• At least 400×400px
+• Good lighting, neutral background looks most professional
+• If no photo is added, your initials "LX" show instead — that's fine too!
+
+If you want to use a different filename, open content.js and update:
+    photo: "assets/photos/YOUR_FILENAME_HERE.jpg"

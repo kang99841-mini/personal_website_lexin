@@ -1,0 +1,9 @@
+HOW TO ADD YOUR RESUME
+──────────────────────
+1. Export your resume as a PDF
+2. Name the file:  Lexin_Resume.pdf
+3. Drop it into THIS folder  (assets/resume/)
+4. The download link on your site will work automatically
+
+If you want to use a different filename, open content.js and update:
+    resume_file: "assets/resume/YOUR_FILENAME_HERE.pdf"

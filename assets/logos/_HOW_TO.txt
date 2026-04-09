@@ -1,0 +1,18 @@
+HOW TO ADD LOGOS
+────────────────
+1. Download the logo image (PNG or JPG) from the company/school website
+2. Drop it into THIS folder  (assets/logos/)
+3. Open content.js and update the "logo" field in the right section
+   e.g.  logo: "assets/logos/sutd_logo.png"
+
+TIPS
+────
+• PNG with transparent background looks best
+• Square images work best (~200×200px or larger)
+• If no logo is provided, the site shows initials automatically
+
+SUGGESTED FILES TO ADD
+──────────────────────
+• sutd_logo.png      — SUTD logo (download from sutd.edu.sg)
+• workato_logo.png   — Workato logo (download from workato.com/press)
+• [company]_logo.png — Any other company or school logos

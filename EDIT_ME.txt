@@ -1,0 +1,37 @@
+╔══════════════════════════════════════════════════════════════════╗
+║           LEXIN'S PORTFOLIO — QUICK START GUIDE                 ║
+╚══════════════════════════════════════════════════════════════════╝
+
+HOW TO EDIT YOUR SITE
+─────────────────────
+Everything you need to change is inside  index.html
+at the very top of the file (the first ~250 lines).
+
+1. Open  index.html  in TextEdit (or any text editor)
+2. The editable section starts right after the line:
+       ✏️  LEXIN'S PORTFOLIO — EDIT YOUR CONTENT HERE
+3. Edit the text between the " " quote marks
+4. Save the file  (Cmd+S)
+5. Open or refresh  index.html  in your browser — done!
+
+RULE: Only change text inside " " quotes.
+Don't delete commas  ,  colons  :  or brackets  { }
+
+WHAT TO EDIT FIRST
+──────────────────
+□  SECTION 1  → change your email and LinkedIn URL
+□  SECTION 6  → update your Workato capstone details
+□  SECTION 9  → fill in your undergraduate degree
+□  assets/resume/   → drop your resume PDF here
+□  assets/photos/   → drop your profile photo here
+□  assets/logos/    → drop school and company logos here
+
+FOLDER GUIDE
+────────────
+assets/
+├── logos/      ← school logos, company logos (PNG or JPG, ~200×200px)
+│                 See assets/logos/_HOW_TO.txt for instructions
+├── photos/     ← your profile photo
+│                 See assets/photos/_HOW_TO.txt for instructions
+└── resume/     ← your resume PDF
+                  See assets/resume/_HOW_TO.txt for instructions
