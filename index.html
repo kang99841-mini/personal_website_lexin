@@ -3,33 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kang — Data Engineer</title>
+  <title>Chen Kang — Data Engineer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0d0d0d;
-      --surface: #141414;
-      --surface-2: #1a1a1a;
-      --border: rgba(255,255,255,0.08);
-      --border-hover: rgba(255,255,255,0.15);
-      --text: #f0f0ee;
-      --muted: #6e6e6e;
-      --subtle: #3a3a3a;
-      --accent: #4f8ef7;
-      --accent-glow: rgba(79,142,247,0.15);
-      --green: #3ecf8e;
-      --orange: #f97316;
-      --max-w: 720px;
-      --font: 'Inter', sans-serif;
-      --mono: 'JetBrains Mono', monospace;
+      --bg:           #03080f;
+      --surface:      #07101c;
+      --card:         #0b1828;
+      --card-hover:   #0f1f34;
+      --border:       rgba(37,99,235,0.18);
+      --border-h:     rgba(59,130,246,0.4);
+      --blue-900:     #1e3a8a;
+      --blue-700:     #1d4ed8;
+      --blue-600:     #2563eb;
+      --blue-500:     #3b82f6;
+      --blue-400:     #60a5fa;
+      --blue-300:     #93c5fd;
+      --blue-glow:    rgba(37,99,235,0.2);
+      --text:         #d8e8ff;
+      --text-2:       #8faac8;
+      --muted:        #3d5a7a;
+      --subtle:       #162234;
+      --font:         'Inter', sans-serif;
+      --mono:         'JetBrains Mono', monospace;
     }
 
     html { scroll-behavior: smooth; }
-
     body {
       font-family: var(--font);
       background: var(--bg);
@@ -38,625 +41,809 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Noise texture overlay ── */
+    /* ─── Background: subtle dot grid ─── */
     body::before {
       content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.5;
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background-image: radial-gradient(rgba(37,99,235,0.18) 1px, transparent 1px);
+      background-size: 32px 32px;
     }
-
-    /* ── Grid background ── */
+    /* radial vignette to fade the grid out from center */
     body::after {
       content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-      background-size: 48px 48px;
-      pointer-events: none;
-      z-index: 0;
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, transparent 40%, var(--bg) 100%);
     }
 
-    /* ── Page ── */
     .page {
-      position: relative;
-      z-index: 1;
-      max-width: var(--max-w);
+      position: relative; z-index: 1;
+      max-width: 780px;
       margin: 0 auto;
-      padding: 4rem 1.5rem 6rem;
+      padding: 3rem 1.5rem 6rem;
     }
 
-    /* ── NAV ── */
+    /* ─── NAV ─── */
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 5rem;
+      margin-bottom: 5.5rem;
     }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
+    .nav-brand {
+      display: flex; align-items: center; gap: 0.65rem;
       text-decoration: none;
     }
-
-    /* ── Logo mark (SVG) ── */
-    .logo-mark {
-      width: 38px;
-      height: 38px;
-      flex-shrink: 0;
+    .nav-monogram {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--blue-700), var(--blue-400));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.9rem; color: #fff;
+      letter-spacing: -0.03em;
     }
-
-    .nav-wordmark {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text);
+    .nav-name {
+      font-weight: 600; font-size: 0.95rem; color: var(--text);
       letter-spacing: -0.01em;
     }
-
-    .nav-wordmark span {
-      color: var(--muted);
-      font-weight: 400;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 1.5rem;
-    }
-
+    .nav-links { display: flex; gap: 1.75rem; }
     .nav-links a {
-      font-size: 0.85rem;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
+      font-size: 0.82rem; color: var(--text-2);
+      text-decoration: none; transition: color 0.2s;
     }
+    .nav-links a:hover { color: var(--blue-400); }
 
-    .nav-links a:hover { color: var(--text); }
+    /* ─── HERO ─── */
+    .hero { margin-bottom: 5rem; }
 
-    /* ── Hero ── */
-    .hero {
-      margin-bottom: 5rem;
-    }
-
-    .hero-eyebrow {
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.3rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.75rem; color: var(--blue-300);
+      background: rgba(37,99,235,0.08);
+      margin-bottom: 1.5rem;
       font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--accent);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 1.25rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
     }
-
-    .hero-eyebrow::before {
-      content: '';
-      display: inline-block;
-      width: 24px;
-      height: 1px;
-      background: var(--accent);
+    .pulse {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #22d3ee;
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(34,211,238,0.5); opacity:1; }
+      50%      { box-shadow: 0 0 0 6px rgba(34,211,238,0); opacity:0.75; }
     }
 
     .hero h1 {
-      font-size: clamp(2.5rem, 6vw, 3.75rem);
-      font-weight: 700;
+      font-size: clamp(2.6rem, 7vw, 4rem);
+      font-weight: 800;
       letter-spacing: -0.04em;
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
+      line-height: 1.08;
+      margin-bottom: 1.25rem;
     }
-
-    .hero h1 em {
-      font-style: normal;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--green) 100%);
+    .hero h1 .grad {
+      background: linear-gradient(100deg, var(--blue-400) 0%, #a5f3fc 60%, var(--blue-300) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    .hero-desc {
-      font-size: 1.05rem;
-      color: var(--muted);
-      max-width: 520px;
+    .hero-sub {
+      font-size: 1.05rem; color: var(--text-2);
+      max-width: 540px; margin-bottom: 2.25rem;
       line-height: 1.8;
-      margin-bottom: 2rem;
     }
 
-    .hero-cta {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.6rem 1.25rem;
-      border-radius: 6px;
-      font-size: 0.875rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.2s;
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      border: 1px solid var(--accent);
-    }
-
-    .btn-primary:hover {
-      background: #3a7fe8;
-      border-color: #3a7fe8;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 20px rgba(79,142,247,0.35);
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--muted);
-      border: 1px solid var(--border);
-    }
-
-    .btn-ghost:hover {
-      color: var(--text);
-      border-color: var(--border-hover);
-      background: var(--surface);
-    }
-
-    /* ── Section title ── */
-    .section-title {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      font-weight: 500;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .section-title::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    /* ── Cards ── */
-    .card {
-      background: var(--surface);
+    .hero-stats {
+      display: flex; gap: 2rem; flex-wrap: wrap;
+      margin-bottom: 2.25rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--card);
       border: 1px solid var(--border);
       border-radius: 12px;
+    }
+    .stat { text-align: left; }
+    .stat-val {
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--blue-400);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.72rem; color: var(--muted);
+      font-family: var(--mono);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      margin-top: 0.2rem;
+    }
+
+    .hero-cta { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.6rem 1.25rem; border-radius: 8px;
+      font-size: 0.875rem; font-weight: 500;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .btn svg { flex-shrink: 0; }
+    .btn-blue {
+      background: var(--blue-600); color: #fff;
+      border: 1px solid var(--blue-600);
+    }
+    .btn-blue:hover {
+      background: var(--blue-700);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 24px rgba(37,99,235,0.4);
+    }
+    .btn-outline {
+      background: transparent; color: var(--text-2);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover {
+      color: var(--text); border-color: var(--border-h);
+      background: var(--card);
+    }
+
+    /* ─── SECTION TITLE ─── */
+    .sec-title {
+      font-family: var(--mono);
+      font-size: 0.68rem; font-weight: 500;
+      color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.14em;
+      margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .sec-title::before {
+      content: '';
+      display: inline-block; width: 20px; height: 1px;
+      background: var(--blue-600);
+    }
+    .sec-title::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(90deg, var(--border), transparent);
+    }
+
+    /* ─── EXPERIENCE ─── */
+    .experience { margin-bottom: 4.5rem; }
+    .exp-list { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    .exp-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
       padding: 1.75rem 2rem;
+      transition: border-color 0.25s, background 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .exp-card::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--blue-600), var(--blue-400));
+      opacity: 0; transition: opacity 0.25s;
+    }
+    .exp-card:hover { border-color: var(--border-h); background: var(--card-hover); }
+    .exp-card:hover::before { opacity: 1; }
+
+    .exp-card.current { border-color: rgba(37,99,235,0.4); }
+    .exp-card.current::before { opacity: 1; }
+
+    .exp-header {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 1rem;
+      margin-bottom: 1.2rem; flex-wrap: wrap;
+    }
+    .exp-company { display: flex; align-items: center; gap: 0.85rem; }
+
+    /* Company logo containers */
+    .company-logo {
+      width: 44px; height: 44px; border-radius: 10px;
+      flex-shrink: 0; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .exp-role { flex: 1; }
+    .exp-title {
+      font-size: 1rem; font-weight: 600;
+      color: var(--text); letter-spacing: -0.01em;
+    }
+    .exp-place {
+      font-size: 0.82rem; color: var(--blue-400);
+      font-weight: 500; margin-top: 0.1rem;
+    }
+    .exp-meta {
+      display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem;
+    }
+    .exp-date {
+      font-family: var(--mono); font-size: 0.7rem;
+      color: var(--muted); white-space: nowrap;
+    }
+    .badge-current {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-family: var(--mono); font-size: 0.65rem;
+      background: rgba(34,197,94,0.1); color: #4ade80;
+      border: 1px solid rgba(34,197,94,0.25);
+      border-radius: 999px; padding: 0.2rem 0.6rem;
+    }
+    .badge-dot { width: 5px; height: 5px; border-radius: 50%; background: #4ade80; }
+
+    .exp-projects { display: flex; flex-direction: column; gap: 1rem; }
+
+    .project-block { padding-left: 1rem; border-left: 1px solid var(--subtle); }
+    .project-name {
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--blue-300); margin-bottom: 0.4rem;
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .project-block ul { list-style: none; }
+    .project-block li {
+      font-size: 0.84rem; color: var(--text-2);
+      padding: 0.25rem 0; display: flex; gap: 0.5rem;
+      align-items: baseline;
+    }
+    .project-block li::before {
+      content: '→'; color: var(--muted);
+      font-size: 0.7rem; flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+    /* highlight numbers */
+    .num {
+      color: var(--blue-400); font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ─── SKILLS ─── */
+    .skills { margin-bottom: 4.5rem; }
+
+    .skill-groups { display: flex; flex-direction: column; gap: 1rem; }
+    .skill-group {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem 1.5rem;
+      display: grid; grid-template-columns: 120px 1fr;
+      gap: 1rem; align-items: center;
       transition: border-color 0.2s;
     }
-
-    .card:hover { border-color: var(--border-hover); }
-
-    /* ── About ── */
-    .about { margin-bottom: 4rem; }
-
-    .about p {
-      color: #b0b0a8;
-      font-size: 0.975rem;
-      margin-bottom: 0.85rem;
+    .skill-group:hover { border-color: var(--border-h); }
+    .skill-group-label {
+      font-family: var(--mono); font-size: 0.68rem;
+      color: var(--muted); text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
-
-    .about p:last-of-type { margin-bottom: 0; }
-
-    .about strong { color: var(--text); font-weight: 500; }
-
-    /* ── Stack ── */
-    .stack { margin-bottom: 4rem; }
-
-    .stack-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      background: var(--border);
+    .skill-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .chip {
+      font-size: 0.78rem; font-weight: 500;
+      padding: 0.28rem 0.7rem;
+      border-radius: 6px;
+      background: rgba(37,99,235,0.1);
+      border: 1px solid rgba(59,130,246,0.2);
+      color: var(--blue-300);
+      transition: background 0.15s, border-color 0.15s;
     }
-
-    .stack-item {
-      background: var(--surface);
-      padding: 1.1rem 1.25rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      transition: background 0.2s;
+    .chip:hover {
+      background: rgba(37,99,235,0.2);
+      border-color: rgba(59,130,246,0.4);
     }
-
-    .stack-item:hover { background: var(--surface-2); }
-
-    .stack-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      flex-shrink: 0;
+    .chip.tier2 {
+      background: rgba(15,30,55,0.6);
+      border-color: var(--border);
+      color: var(--text-2);
     }
-
-    .dot-blue  { background: var(--accent); }
-    .dot-green { background: var(--green); }
-    .dot-orange{ background: var(--orange); }
-    .dot-purple{ background: #a78bfa; }
-
-    .stack-item-name {
-      font-size: 0.875rem;
-      font-weight: 500;
+    .chip.tier2:hover {
+      border-color: var(--border-h);
       color: var(--text);
     }
 
-    .stack-item-desc {
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-top: 0.1rem;
-    }
+    /* ─── EDUCATION ─── */
+    .education { margin-bottom: 4.5rem; }
 
-    /* ── Focus areas ── */
-    .focus { margin-bottom: 4rem; }
-
-    .focus-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 0.75rem;
-    }
-
-    .focus-card {
-      background: var(--surface);
+    .edu-card {
+      background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.25rem;
-      transition: border-color 0.2s, transform 0.2s;
+      border-radius: 14px;
+      padding: 1.75rem 2rem;
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 1.25rem;
+      align-items: start;
+      transition: border-color 0.25s;
+    }
+    .edu-card:hover { border-color: var(--border-h); }
+
+    .edu-logo {
+      width: 52px; height: 52px; border-radius: 12px;
+      overflow: hidden; flex-shrink: 0;
     }
 
-    .focus-card:hover {
-      border-color: var(--border-hover);
-      transform: translateY(-2px);
+    .edu-degree {
+      font-size: 1rem; font-weight: 600;
+      color: var(--text); margin-bottom: 0.15rem;
+    }
+    .edu-school {
+      font-size: 0.85rem; color: var(--blue-400);
+      font-weight: 500;
+    }
+    .edu-date {
+      font-family: var(--mono); font-size: 0.7rem;
+      color: var(--muted); margin-top: 0.2rem;
+    }
+    .edu-badges {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;
+    }
+    .edu-badge {
+      font-size: 0.73rem; font-weight: 500;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(251,191,36,0.08);
+      border: 1px solid rgba(251,191,36,0.2);
+      color: #fbbf24;
     }
 
-    .focus-icon {
-      font-size: 1.25rem;
-      margin-bottom: 0.6rem;
-    }
-
-    .focus-card h3 {
-      font-size: 0.875rem;
-      font-weight: 600;
-      margin-bottom: 0.3rem;
-    }
-
-    .focus-card p {
-      font-size: 0.78rem;
-      color: var(--muted);
-      line-height: 1.55;
-    }
-
-    /* ── Contact ── */
+    /* ─── CONTACT ─── */
     .contact { margin-bottom: 4rem; }
 
     .contact-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 0.75rem;
-    }
-
-    .contact-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.1rem 1.25rem;
-      display: flex;
-      align-items: center;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: 0.85rem;
-      text-decoration: none;
-      color: var(--text);
-      transition: border-color 0.2s, transform 0.2s;
     }
-
+    .contact-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem 1.25rem;
+      display: flex; align-items: center; gap: 0.9rem;
+      text-decoration: none; color: var(--text);
+      transition: border-color 0.2s, transform 0.2s, background 0.2s;
+    }
     .contact-card:hover {
-      border-color: var(--border-hover);
+      border-color: var(--border-h);
+      background: var(--card-hover);
       transform: translateY(-2px);
     }
-
     .contact-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      background: var(--surface-2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 38px; height: 38px; border-radius: 9px;
+      background: var(--subtle);
+      display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
-
-    .contact-icon svg { width: 16px; height: 16px; }
-
     .contact-label {
-      font-size: 0.7rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+      font-family: var(--mono);
+      font-size: 0.65rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.08em;
     }
-
-    .contact-value {
-      font-size: 0.875rem;
-      font-weight: 500;
-      margin-top: 0.1rem;
+    .contact-val {
+      font-size: 0.875rem; font-weight: 500;
+      margin-top: 0.1rem; color: var(--text);
     }
+    .contact-val.ph { color: var(--text-2); font-style: italic; font-size: 0.78rem; }
 
-    .contact-value.placeholder { color: var(--subtle); font-style: italic; }
-
-    /* ── Footer ── */
+    /* ─── FOOTER ─── */
     footer {
       border-top: 1px solid var(--border);
       padding-top: 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 1rem;
     }
+    footer .fl { display: flex; align-items: center; gap: 0.6rem; }
+    footer p { font-size: 0.78rem; color: var(--muted); }
 
-    footer .left {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    footer p {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      background: var(--green);
-      border-radius: 50%;
-      animation: pulse 2.5s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(62,207,142,0.4); }
-      50%       { opacity: 0.7; box-shadow: 0 0 0 5px rgba(62,207,142,0); }
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 520px) {
-      .page { padding: 2.5rem 1.25rem 4rem; }
-      nav { margin-bottom: 3.5rem; }
-      .hero { margin-bottom: 3.5rem; }
-      .nav-links { gap: 1rem; }
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 560px) {
+      .page { padding: 2rem 1.1rem 4rem; }
+      nav { margin-bottom: 3rem; }
+      .hero { margin-bottom: 3rem; }
+      .hero-stats { gap: 1.25rem; }
+      .exp-card { padding: 1.25rem 1.25rem; }
+      .skill-group { grid-template-columns: 1fr; gap: 0.6rem; }
+      .edu-card { grid-template-columns: 1fr; }
+      .exp-meta { align-items: flex-start; }
     }
   </style>
 </head>
 <body>
 <div class="page">
 
-  <!-- NAV -->
+  <!-- ═══ NAV ═══ -->
   <nav>
-    <a href="#" class="nav-logo">
-      <!-- Logo Mark: stylised "K" in a hexagon -->
-      <svg class="logo-mark" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="lg" x1="0" y1="0" x2="38" y2="38" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#4f8ef7"/>
-            <stop offset="100%" stop-color="#3ecf8e"/>
-          </linearGradient>
-        </defs>
-        <!-- Hexagon -->
-        <path d="M19 2L34.5 11V27L19 36L3.5 27V11L19 2Z" fill="url(#lg)" opacity="0.12"/>
-        <path d="M19 2L34.5 11V27L19 36L3.5 27V11L19 2Z" stroke="url(#lg)" stroke-width="1.5"/>
-        <!-- K letterform -->
-        <line x1="13.5" y1="11" x2="13.5" y2="27" stroke="url(#lg)" stroke-width="2" stroke-linecap="round"/>
-        <line x1="13.5" y1="19" x2="24" y2="11" stroke="url(#lg)" stroke-width="2" stroke-linecap="round"/>
-        <line x1="13.5" y1="19" x2="24" y2="27" stroke="url(#lg)" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-      <span class="nav-wordmark">Kang <span>/ DE</span></span>
+    <a href="#" class="nav-brand">
+      <div class="nav-monogram">CK</div>
+      <span class="nav-name">Chen Kang</span>
     </a>
     <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#stack">Stack</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
       <a href="#contact">Contact</a>
     </div>
   </nav>
 
-  <!-- HERO -->
+  <!-- ═══ HERO ═══ -->
   <div class="hero">
-    <div class="hero-eyebrow">Data Engineer · ByteDance · Singapore</div>
-    <h1>Building pipelines<br>at <em>petabyte scale</em></h1>
-    <p class="hero-desc">
-      I own the live stream costing pipelines at ByteDance — calculating infrastructure costs,
-      detecting price mismatches, and keeping petabyte-scale data honest.
+    <div class="hero-badge">
+      <div class="pulse"></div>
+      Currently @ ByteDance · Singapore
+    </div>
+
+    <h1>
+      Data Engineer.<br>
+      <span class="grad">Pipeline Architect.</span>
+    </h1>
+
+    <p class="hero-sub">
+      I build high-throughput data infrastructure at scale —
+      petabyte pipelines, cost attribution systems, and real-time ELT at
+      hundreds of millions of rows per hour.
     </p>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-val">300M+</div>
+        <div class="stat-label">Rows / Hour</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">~1B+</div>
+        <div class="stat-label">Daily Records</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">90%↓</div>
+        <div class="stat-label">Undetected Errors</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">95%+</div>
+        <div class="stat-label">Pipeline Uptime</div>
+      </div>
+    </div>
+
     <div class="hero-cta">
-      <a href="#contact" class="btn btn-primary">
+      <a href="mailto:chenkang2124@gmail.com" class="btn btn-blue">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         Get in touch
       </a>
-      <a href="https://github.com/kang99841-mini" target="_blank" class="btn btn-ghost">
+      <a href="https://github.com/kang99841-mini" target="_blank" class="btn btn-outline">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.137 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 24 12C24 5.37 18.63 0 12 0z"/></svg>
         GitHub
+      </a>
+      <a href="resume/Chen_Kang_Resume_2025.pdf" target="_blank" class="btn btn-outline">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
+        Resume
       </a>
     </div>
   </div>
 
-  <!-- ABOUT -->
-  <section id="about" class="about">
-    <div class="section-title">About</div>
-    <div class="card">
-      <p>
-        I'm a <strong>Data Engineer</strong> on ByteDance's Data Team, embedded in the Live Streaming vertical.
-        My primary responsibility is owning the <strong>live stream costing pipelines</strong> — systems that
-        calculate costs across the entire live streaming infrastructure, surface price mismatches, and support
-        root-cause diagnosis at scale.
-      </p>
-      <p>
-        Day-to-day this means writing performant <strong>Hive SQL</strong> over petabyte tables,
-        tuning <strong>Spark</strong> jobs for skew and shuffle efficiency, and understanding the
-        in-house data warehouse deeply enough to make good architectural decisions — not just get things working.
-      </p>
-      <p>
-        I care about the <em>why</em> behind every design choice and believe that cost attribution
-        done right is one of the highest-leverage things an engineering team can invest in.
-      </p>
+  <!-- ═══ EXPERIENCE ═══ -->
+  <section id="experience" class="experience">
+    <div class="sec-title">Experience</div>
+    <div class="exp-list">
+
+      <!-- ByteDance -->
+      <div class="exp-card current">
+        <div class="exp-header">
+          <div class="exp-company">
+            <div class="company-logo">
+              <!-- ByteDance Logo: abstract spark mark on dark bg -->
+              <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" width="44" height="44">
+                <rect width="44" height="44" fill="#161823"/>
+                <!-- ByteDance spark icon: two overlapping musical-note-like shapes, their classic icon -->
+                <defs>
+                  <linearGradient id="bd-r" x1="14" y1="30" x2="26" y2="14" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#FE2C55"/>
+                    <stop offset="1" stop-color="#FE2C55" stop-opacity="0.7"/>
+                  </linearGradient>
+                  <linearGradient id="bd-c" x1="18" y1="10" x2="30" y2="26" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#25F4EE"/>
+                    <stop offset="1" stop-color="#25F4EE" stop-opacity="0.7"/>
+                  </linearGradient>
+                </defs>
+                <!-- Red/pink shape (left) -->
+                <path d="M14 12 L14 28 Q14 32 18 32 Q22 32 22 28 L22 22 Q26 24 30 22" stroke="url(#bd-r)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <!-- Cyan shape (right, offset) -->
+                <path d="M16 10 L16 26 Q16 30 20 30 Q24 30 24 26 L24 20 Q28 22 32 20" stroke="url(#bd-c)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <!-- White overlay for centre -->
+                <path d="M15 11 L15 27 Q15 31 19 31 Q23 31 23 27 L23 21 Q27 23 31 21" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              </svg>
+            </div>
+            <div class="exp-role">
+              <div class="exp-title">Data Engineer</div>
+              <div class="exp-place">ByteDance</div>
+            </div>
+          </div>
+          <div class="exp-meta">
+            <span class="exp-date">2025 – Present</span>
+            <span class="badge-current"><span class="badge-dot"></span>Current</span>
+          </div>
+        </div>
+        <div class="exp-projects">
+          <div class="project-block">
+            <div class="project-name">Live Stream Costing Pipelines</div>
+            <ul>
+              <li>Own end-to-end costing pipelines across ByteDance's live streaming infrastructure, calculating costs at <span class="num">petabyte scale</span>.</li>
+              <li>Detect and diagnose price mismatches through automated validation and reconciliation logic across the data warehouse.</li>
+              <li>Work with <span class="num">Hive SQL</span> and <span class="num">Spark</span>, tuning for join strategies, partition pruning, and skew mitigation on massive datasets.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tencent -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-company">
+            <div class="company-logo">
+              <!-- Tencent Logo: QQ Penguin on Tencent blue -->
+              <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" width="44" height="44">
+                <rect width="44" height="44" fill="#0052D9"/>
+                <!-- Penguin body -->
+                <ellipse cx="22" cy="34" rx="10" ry="8" fill="#111"/>
+                <!-- White belly -->
+                <ellipse cx="22" cy="35.5" rx="6.5" ry="6" fill="#fff"/>
+                <!-- Head -->
+                <circle cx="22" cy="17" r="10" fill="#111"/>
+                <!-- White eye areas -->
+                <ellipse cx="17.5" cy="14.5" rx="3.8" ry="4.2" fill="#fff"/>
+                <ellipse cx="26.5" cy="14.5" rx="3.8" ry="4.2" fill="#fff"/>
+                <!-- Pupils -->
+                <circle cx="18.3" cy="15.5" r="2" fill="#111"/>
+                <circle cx="27.3" cy="15.5" r="2" fill="#111"/>
+                <!-- Eye shine -->
+                <circle cx="17.8" cy="14.2" r="0.7" fill="#fff"/>
+                <circle cx="26.8" cy="14.2" r="0.7" fill="#fff"/>
+                <!-- Beak -->
+                <path d="M19.5 20.5 Q22 23.5 24.5 20.5 Q23 24 22 24 Q21 24 19.5 20.5Z" fill="#f59e0b"/>
+                <!-- Scarf (white, across neck) -->
+                <path d="M13 26 Q22 29.5 31 26 Q31 30 22 31.5 Q13 30 13 26Z" fill="#fff" opacity="0.9"/>
+                <!-- Wings -->
+                <ellipse cx="13" cy="33" rx="4" ry="7" fill="#111" transform="rotate(-12 13 33)"/>
+                <ellipse cx="31" cy="33" rx="4" ry="7" fill="#111" transform="rotate(12 31 33)"/>
+                <!-- Feet -->
+                <ellipse cx="18.5" cy="42" rx="4.5" ry="2" fill="#f59e0b"/>
+                <ellipse cx="25.5" cy="42" rx="4.5" ry="2" fill="#f59e0b"/>
+              </svg>
+            </div>
+            <div class="exp-role">
+              <div class="exp-title">Data Engineer</div>
+              <div class="exp-place">Tencent</div>
+            </div>
+          </div>
+          <div class="exp-meta">
+            <span class="exp-date">Nov 2023 – 2025</span>
+          </div>
+        </div>
+        <div class="exp-projects">
+          <div class="project-block">
+            <div class="project-name">Unified Advertising & AI Data Platform</div>
+            <ul>
+              <li>Owned a Flask backend integrating <span class="num">20+ media APIs</span>, ingesting <span class="num">~50M+ daily ad metrics</span> into Postgres and BigQuery.</li>
+              <li>Increased platform reliability by <span class="num">60%</span>, sustaining <span class="num">90% uptime</span> through error handling, refactoring, and automated validation.</li>
+              <li>Reduced development time by <span class="num">50%</span> via modular API connectors and reusable templates for faster media onboarding.</li>
+            </ul>
+          </div>
+          <div class="project-block">
+            <div class="project-name">MMP High-Throughput ELT Pipeline</div>
+            <ul>
+              <li>Architected a Kafka + PySpark + Hive pipeline processing <span class="num">300M+ rows/hour</span> for marketing attribution.</li>
+              <li>End-to-end observability (load balancer → Kafka → Hive) cut undetected errors by <span class="num">~90%</span>.</li>
+              <li>Disaster recovery framework reduced recovery time from <span class="num">3 days → 3 hours</span>, maintaining <span class="num">95%+ uptime</span>.</li>
+            </ul>
+          </div>
+          <div class="project-block">
+            <div class="project-name">KOL Intelligence Data Platform</div>
+            <ul>
+              <li>Engineered and modelled KOL metrics data (<span class="num">~500M+ daily records</span>) to support ML models for influencer identification.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Synapxe -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-company">
+            <div class="company-logo" style="background:#0c2340; border-radius:10px;">
+              <svg viewBox="0 0 44 44" fill="none" width="44" height="44">
+                <rect width="44" height="44" fill="#0c2340"/>
+                <text x="22" y="28" text-anchor="middle" fill="#38bdf8" font-family="Inter,sans-serif" font-weight="700" font-size="13">Sx</text>
+              </svg>
+            </div>
+            <div class="exp-role">
+              <div class="exp-title">Data Science Intern</div>
+              <div class="exp-place">Synapxe</div>
+            </div>
+          </div>
+          <div class="exp-meta">
+            <span class="exp-date">May – Nov 2023</span>
+          </div>
+        </div>
+        <div class="exp-projects">
+          <div class="project-block">
+            <ul>
+              <li>Built an automated image segmentation workflow using a visual foundation model, reducing radiologist effort by <span class="num">50%+</span>.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Corteva -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-company">
+            <div class="company-logo" style="border-radius:10px; overflow:hidden;">
+              <svg viewBox="0 0 44 44" fill="none" width="44" height="44">
+                <rect width="44" height="44" fill="#005c3b"/>
+                <text x="22" y="28" text-anchor="middle" fill="#86efac" font-family="Inter,sans-serif" font-weight="700" font-size="12">Co</text>
+              </svg>
+            </div>
+            <div class="exp-role">
+              <div class="exp-title">Data Engineering Intern</div>
+              <div class="exp-place">Corteva Agriscience</div>
+            </div>
+          </div>
+          <div class="exp-meta">
+            <span class="exp-date">May 2022 – May 2023</span>
+          </div>
+        </div>
+        <div class="exp-projects">
+          <div class="project-block">
+            <ul>
+              <li>Built automated ELT pipelines on Azure (Data Factory, Databricks) refreshing <span class="num">10+ dashboards</span>, reducing manual prep time by <span class="num">80%</span>.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- STACK -->
-  <section id="stack" class="stack">
-    <div class="section-title">Stack</div>
-    <div class="stack-grid">
-      <div class="stack-item">
-        <div class="stack-dot dot-blue"></div>
-        <div>
-          <div class="stack-item-name">Hive SQL</div>
-          <div class="stack-item-desc">Petabyte-scale queries</div>
+  <!-- ═══ SKILLS ═══ -->
+  <section id="skills" class="skills">
+    <div class="sec-title">Skills</div>
+    <div class="skill-groups">
+      <div class="skill-group">
+        <div class="skill-group-label">Languages</div>
+        <div class="skill-chips">
+          <span class="chip">Python</span>
+          <span class="chip">PySpark</span>
+          <span class="chip">SQL</span>
+          <span class="chip">Hive SQL</span>
         </div>
       </div>
-      <div class="stack-item">
-        <div class="stack-dot dot-orange"></div>
-        <div>
-          <div class="stack-item-name">Apache Spark</div>
-          <div class="stack-item-desc">Distributed processing</div>
+      <div class="skill-group">
+        <div class="skill-group-label">Pipelines</div>
+        <div class="skill-chips">
+          <span class="chip">Apache Kafka</span>
+          <span class="chip">Apache Spark</span>
+          <span class="chip">Apache Airflow</span>
+          <span class="chip">ETL / ELT</span>
         </div>
       </div>
-      <div class="stack-item">
-        <div class="stack-dot dot-blue"></div>
-        <div>
-          <div class="stack-item-name">Python</div>
-          <div class="stack-item-desc">Scripting & automation</div>
+      <div class="skill-group">
+        <div class="skill-group-label">Databases</div>
+        <div class="skill-chips">
+          <span class="chip">PostgreSQL</span>
+          <span class="chip">BigQuery</span>
+          <span class="chip">Hive</span>
+          <span class="chip">Data Modelling</span>
         </div>
       </div>
-      <div class="stack-item">
-        <div class="stack-dot dot-green"></div>
-        <div>
-          <div class="stack-item-name">Data Warehouse</div>
-          <div class="stack-item-desc">ByteDance in-house platform</div>
+      <div class="skill-group">
+        <div class="skill-group-label">Cloud</div>
+        <div class="skill-chips">
+          <span class="chip tier2">Azure</span>
+          <span class="chip tier2">AWS</span>
+          <span class="chip tier2">GCP</span>
+          <span class="chip tier2">Azure Databricks</span>
+          <span class="chip tier2">Azure Data Factory</span>
         </div>
       </div>
-      <div class="stack-item">
-        <div class="stack-dot dot-purple"></div>
-        <div>
-          <div class="stack-item-name">Pipeline Design</div>
-          <div class="stack-item-desc">Cost attribution systems</div>
-        </div>
-      </div>
-      <div class="stack-item">
-        <div class="stack-dot dot-green"></div>
-        <div>
-          <div class="stack-item-name">SQL Optimisation</div>
-          <div class="stack-item-desc">Join strategies, partitioning</div>
+      <div class="skill-group">
+        <div class="skill-group-label">Observability</div>
+        <div class="skill-chips">
+          <span class="chip tier2">Prometheus</span>
+          <span class="chip tier2">Grafana</span>
+          <span class="chip tier2">Data Validation</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FOCUS -->
-  <section class="focus">
-    <div class="section-title">Focus Areas</div>
-    <div class="focus-grid">
-      <div class="focus-card">
-        <div class="focus-icon">⚡</div>
-        <h3>Cost Pipelines</h3>
-        <p>Accurate cost attribution and price mismatch detection at scale.</p>
+  <!-- ═══ EDUCATION ═══ -->
+  <section id="education" class="education">
+    <div class="sec-title">Education</div>
+    <div class="edu-card">
+      <!-- NUS logo: lion mark on NUS orange-red -->
+      <div class="edu-logo">
+        <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" width="52" height="52">
+          <rect width="52" height="52" rx="12" fill="#003D7C"/>
+          <!-- NUS wordmark style -->
+          <text x="26" y="23" text-anchor="middle" fill="#EF7C00" font-family="Inter,sans-serif" font-weight="800" font-size="11" letter-spacing="1">NUS</text>
+          <!-- Lion head simplified -->
+          <path d="M18 38 Q18 32 22 30 Q24 29 26 29 Q28 29 30 30 Q34 32 34 38Z" fill="#EF7C00"/>
+          <circle cx="26" cy="28" r="5" fill="#EF7C00"/>
+          <!-- mane lines -->
+          <path d="M21 24 Q19 21 21 19" stroke="#EF7C00" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M31 24 Q33 21 31 19" stroke="#EF7C00" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M26 23 Q26 20 26 18" stroke="#EF7C00" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- eyes -->
+          <circle cx="24" cy="27" r="1" fill="#003D7C"/>
+          <circle cx="28" cy="27" r="1" fill="#003D7C"/>
+        </svg>
       </div>
-      <div class="focus-card">
-        <div class="focus-icon">🔬</div>
-        <h3>Query Performance</h3>
-        <p>Broadcast joins, skew handling, partition pruning on huge tables.</p>
-      </div>
-      <div class="focus-card">
-        <div class="focus-icon">🏗️</div>
-        <h3>Data Architecture</h3>
-        <p>Storage formats, lineage, and distributed query engine internals.</p>
-      </div>
-      <div class="focus-card">
-        <div class="focus-icon">📡</div>
-        <h3>Live Streaming</h3>
-        <p>Domain-specific data patterns in ByteDance's live product.</p>
+      <div>
+        <div class="edu-degree">B.Sc. Business Analytics, Machine Learning</div>
+        <div class="edu-school">National University of Singapore (NUS)</div>
+        <div class="edu-date">Aug 2020 – Nov 2023</div>
+        <div class="edu-badges">
+          <span class="edu-badge">Honours (Distinction)</span>
+          <span class="edu-badge">Dean's List AY22/23</span>
+          <span class="edu-badge">Certificate of Distinction — Analytics</span>
+          <span class="edu-badge">Top Student — App Systems Dev</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- ═══ CONTACT ═══ -->
   <section id="contact" class="contact">
-    <div class="section-title">Contact</div>
+    <div class="sec-title">Contact</div>
     <div class="contact-grid">
-      <!-- Replace href + .placeholder text with your real email -->
-      <a href="mailto:your@email.com" class="contact-card">
+      <a href="mailto:chenkang2124@gmail.com" class="contact-card">
         <div class="contact-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#4f8ef7" stroke-width="1.8">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
             <polyline points="22,6 12,13 2,6"/>
           </svg>
         </div>
         <div>
           <div class="contact-label">Email</div>
-          <div class="contact-value placeholder">your@email.com</div>
+          <div class="contact-val">chenkang2124@gmail.com</div>
         </div>
       </a>
-      <!-- Replace href + text with your LinkedIn URL -->
-      <a href="https://linkedin.com/in/yourhandle" target="_blank" class="contact-card">
+      <a href="tel:+6597300779" class="contact-card">
         <div class="contact-icon">
-          <svg viewBox="0 0 24 24" fill="#4f8ef7">
-            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-            <rect x="2" y="9" width="4" height="12"/>
-            <circle cx="4" cy="4" r="2"/>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.37 5.37l1.99-1.99a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
           </svg>
         </div>
         <div>
-          <div class="contact-label">LinkedIn</div>
-          <div class="contact-value placeholder">yourhandle</div>
+          <div class="contact-label">Phone</div>
+          <div class="contact-val">+65 9730 0779</div>
         </div>
       </a>
       <a href="https://github.com/kang99841-mini" target="_blank" class="contact-card">
         <div class="contact-icon">
-          <svg viewBox="0 0 24 24" fill="#3ecf8e">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#60a5fa">
             <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.137 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 24 12C24 5.37 18.63 0 12 0z"/>
           </svg>
         </div>
         <div>
           <div class="contact-label">GitHub</div>
-          <div class="contact-value">kang99841-mini</div>
+          <div class="contact-val">kang99841-mini</div>
+        </div>
+      </a>
+      <a href="resume/Chen_Kang_Resume_2025.pdf" target="_blank" class="contact-card">
+        <div class="contact-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14,2 14,8 20,8"/>
+          </svg>
+        </div>
+        <div>
+          <div class="contact-label">Resume</div>
+          <div class="contact-val">Download PDF</div>
         </div>
       </a>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- ═══ FOOTER ═══ -->
   <footer>
-    <div class="left">
-      <svg width="20" height="20" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="lg2" x1="0" y1="0" x2="38" y2="38" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#4f8ef7"/>
-            <stop offset="100%" stop-color="#3ecf8e"/>
-          </linearGradient>
-        </defs>
-        <path d="M19 2L34.5 11V27L19 36L3.5 27V11L19 2Z" stroke="url(#lg2)" stroke-width="1.5"/>
-        <line x1="13.5" y1="11" x2="13.5" y2="27" stroke="url(#lg2)" stroke-width="2" stroke-linecap="round"/>
-        <line x1="13.5" y1="19" x2="24" y2="11" stroke="url(#lg2)" stroke-width="2" stroke-linecap="round"/>
-        <line x1="13.5" y1="19" x2="24" y2="27" stroke="url(#lg2)" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-      <p>Kang · Data Engineer · Singapore</p>
+    <div class="fl">
+      <div class="nav-monogram" style="width:28px;height:28px;font-size:0.72rem;border-radius:6px;">CK</div>
+      <p>Chen Kang · Singapore Citizen · Open to opportunities</p>
     </div>
-    <div style="display:flex;align-items:center;gap:0.5rem;">
-      <div class="status-dot"></div>
-      <p>Open to connect</p>
+    <div class="fl">
+      <div class="pulse"></div>
+      <p>1 month notice</p>
     </div>
   </footer>
 
