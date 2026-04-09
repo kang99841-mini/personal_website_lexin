@@ -144,7 +144,7 @@ const PORTFOLIO = {
 
     // Logo image: drop file into assets/logos/ and update below.
     // If no file is found, the logo_initials letter shows instead.
-    logo:          "assets/logos/workato_logo.png",
+    logo:          "assets/logos/Workato.png",
     logo_bg:       "#1a1a2e",    // background colour behind logo
     logo_initials: "W",          // fallback letter if no logo
 
@@ -239,7 +239,12 @@ const PORTFOLIO = {
         "Include before/after: what changed because of your design decision?",
         "Quantify impact where possible: task success rate, time saved, NPS score",
         "Best fit: redesigning an AI feature, fixing a broken workflow, improving onboarding"
-      ]
+      ],
+      // ── Figma link ──────────────────────────────────────
+      // Paste your Figma prototype or file URL here.
+      // Leave blank ("") to hide the button.
+      figma_url:   "",
+      figma_label: "View Figma Prototype",
     },
 
     {
@@ -320,7 +325,7 @@ const PORTFOLIO = {
       period:   "2024 – 2026",
 
       // Drop logo into assets/logos/ and update filename below
-      logo:          "assets/logos/sutd_logo.png",
+      logo:          "assets/logos/SUTD.png",
       logo_bg:       "#003b5c",
       logo_initials: "SUTD",
 
@@ -338,14 +343,14 @@ const PORTFOLIO = {
       school:   "City University of Macau",
       period:   "2020 – 2024",
 
-      logo:          "assets/logos/cityu_macau_logo.png",
+      logo:          "assets/logos/cityu.png",
       logo_bg:       "#003f7f",
       logo_initials: "CityU",
 
-      highlight: "",
+      highlight: "GPA 4.8 / 5.0",
       achievements: [
-        "Add your honours class, GPA, or any awards here",
-        "Add a notable project, thesis, or extracurricular activity"
+        "Add a notable project, thesis, or extracurricular activity",
+        "Add any awards or honours here"
       ],
 
       placeholder: false
@@ -677,6 +682,16 @@ const PORTFOLIO = {
     .ph-tips  { list-style: none; display: flex; flex-direction: column; gap: .3rem; }
     .ph-tips li { display: flex; align-items: flex-start; gap: .4rem; font-size: .76rem; color: var(--text3); line-height: 1.5; }
     .ph-tips li::before { content: '→'; color: var(--v400); flex-shrink: 0; font-weight: 700; margin-top: .05em; }
+    .ph-figma-row { margin-top: 1rem; }
+    .btn-figma {
+      display: inline-flex; align-items: center; gap: .45rem;
+      padding: .5rem 1rem; background: var(--v600); color: #fff;
+      border-radius: 7px; font-weight: 600; font-size: .8rem;
+      text-decoration: none; transition: background .2s;
+    }
+    .btn-figma:hover { background: var(--v700); }
+    .ph-figma-empty { font-size: .74rem; color: var(--text3); font-style: italic; }
+    .ph-figma-empty code { font-family: var(--mono); font-style: normal; color: var(--v500); }
 
     /* ═════════════════ SKILLS ═════════════════════ */
     .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 1rem; }
@@ -1116,7 +1131,6 @@ const PORTFOLIO = {
           ${statusBadge}
         </div>
       </div>
-      <div class="featured-date">${escHtml(fp.period)}</div>
     </div>
     <div class="featured-body">
       <p class="featured-summary">${escHtml(fp.summary)}</p>
@@ -1131,6 +1145,12 @@ const PORTFOLIO = {
   /* ── 8. More projects ── */
   html('projects-grid', P.projects.map(p => {
     if (p.placeholder) {
+      const figmaBtn = p.figma_url
+        ? `<a href="${escHtml(p.figma_url)}" target="_blank" class="btn-figma">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"/><path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/><path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 0 1-7 0z"/><path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"/></svg>
+            ${escHtml(p.figma_label || 'View Figma Prototype')}
+           </a>`
+        : `<span class="ph-figma-empty">Paste your Figma URL in <code>figma_url</code> to show a button here</span>`;
       return `<div class="placeholder-card">
         <div class="ph-inner">
           <div class="ph-icon">${p.icon}</div>
@@ -1138,6 +1158,7 @@ const PORTFOLIO = {
           <div class="ph-title">${escHtml(p.title)}</div>
           <p class="ph-hint">${escHtml(p.hint)}</p>
           <ul class="ph-tips">${p.tips.map(t=>`<li>${escHtml(t)}</li>`).join('')}</ul>
+          <div class="ph-figma-row">${figmaBtn}</div>
         </div>
       </div>`;
     }
